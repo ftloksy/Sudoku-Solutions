@@ -1,5 +1,3 @@
-import OneToNineTester
-
 class SudokuPuzzle:
   def __init__(self):
     self.thePuzzle = [[0 for i in range(9)] for j in range(9)];
