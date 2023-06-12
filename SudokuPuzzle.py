@@ -26,3 +26,8 @@ class SudokuPuzzle:
         grids.extend( r[startXLocation:endXLocation] )
     return grids
 
+  def getNextZero(self):
+    for i in range(9):
+      for j in range(9):
+        if self.thePuzzle == 0:
+          return (i, j)
