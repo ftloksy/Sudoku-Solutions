@@ -51,3 +51,6 @@ puzzle = setSudokuPuzzle()
 sudokuValidator = SudokuValidator.IsVaild(puzzle)
 if ( sudokuValidator.getTestedResult() ):
   print("The Puzzle is vaild.")
+
+nextZero = puzzle.getNextZero()
+print("Next Zero: {}".format(nextZero));

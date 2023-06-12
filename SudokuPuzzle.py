@@ -27,7 +27,18 @@ class SudokuPuzzle:
     return grids
 
   def getNextZero(self):
-    for i in range(9):
-      for j in range(9):
-        if self.thePuzzle == 0:
-          return (i, j)
+    for y in range(9):
+      for x in range(9):
+        if self.thePuzzle[y][x] == 0:
+
+#           print( "Grids: {}".format(self.getGrids(int(x/3), int(y/3))) )
+#           print( "Row: {}".format( self.thePuzzle[y]) )
+#           print( "Column: {}".format(self.getColumn(x)) )
+# 
+#           return (x, y, (int(x/3), int(y/3)))
+          return [
+              self.getGrids(int(x/3), int(y/3)),
+              self.thePuzzle[y],
+              self.getColumn(x)
+          ]
+    return [[],[],[]]
