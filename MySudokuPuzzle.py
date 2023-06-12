@@ -1,19 +1,6 @@
 import SudokuValidator
 import SudokuPuzzle
-
-def oneToNineArray():
-  a = []
-  for i in range(1, 10):
-    a.append(i)
-  return a
-
-def dropExistNumbers(possibleNumbers, existNumbers):
-  for number in existNumbers:
-    if number != 0:
-      for p in possibleNumbers:
-        if p == number:
-          possibleNumbers[p-1] = 0
-  return possibleNumbers
+import Helper
 
 def setSudokuPuzzle():
   sudokuPuzzle = SudokuPuzzle.SudokuPuzzle()
@@ -62,16 +49,29 @@ def setSudokuPuzzle():
     # sudokuPuzzle.setGivens(8, 8, 7)
     
 puzzle = setSudokuPuzzle()
+
+# print(puzzle.getPuzzle())
+
 sudokuValidator = SudokuValidator.IsVaild(puzzle)
 if ( sudokuValidator.getTestedResult() ):
   print("The Puzzle is vaild.")
 
-possibleNumbers = oneToNineArray()
+round = 0
+while True:
+  hasNotSureRow = 0
+  round += 1
+  puzzle.updatePossibleNumbers()
+  for y, row in enumerate(puzzle.getPuzzleObj()):
+    for x, square in enumerate(row):
+      if not square.sureThis():
+        hasNotSureRow += 1
+        print("{}x, {}y: {} , len: {}".format(
+          x, y, square.getPossibleNumber(), square.getLongPossibleNumber()
+        ))
+  if hasNotSureRow == 0:
+    break
+  else:
+    print("Round: {}".format(round))
 
-print("Number: {}".format(possibleNumbers))
-nextZero = puzzle.getNextZero()
-print("Next Zero: {}".format(nextZero));
-for givenNumbers in nextZero:
-  possibleNumbers = dropExistNumbers(possibleNumbers, givenNumbers)
-
-print("Possible Number: {}".format(possibleNumbers))
+for row in puzzle.getPuzzle():
+  print(row)
