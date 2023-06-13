@@ -1,3 +1,8 @@
+# Set the Sudoku puzzle broad 
+# and find that broad's solution.
+# I know the setGivens is very hard 
+# for common using. 
+# Maybe I will add the web interface for version 2.
 import SudokuValidator
 import SudokuPuzzle
 import Helper
@@ -50,28 +55,15 @@ def setSudokuPuzzle():
     
 puzzle = setSudokuPuzzle()
 
-# print(puzzle.getPuzzle())
-
 sudokuValidator = SudokuValidator.IsVaild(puzzle)
 if ( sudokuValidator.getTestedResult() ):
-  print("The Puzzle is vaild.")
+  print("-------- The Puzzle is vaild. ----------")
 
-round = 0
-while True:
-  hasNotSureRow = 0
-  round += 1
-  puzzle.updatePossibleNumbers()
-  for y, row in enumerate(puzzle.getPuzzleObj()):
-    for x, square in enumerate(row):
-      if not square.sureThis():
-        hasNotSureRow += 1
-        print("{}x, {}y: {} , len: {}".format(
-          x, y, square.getPossibleNumber(), square.getLongPossibleNumber()
-        ))
-  if hasNotSureRow == 0:
-    break
-  else:
-    print("Round: {}".format(round))
+  puzzle.findSolution()
 
-for row in puzzle.getPuzzle():
-  print(row)
+  for row in puzzle.getGivenPuzzle():
+    print("     {}".format(row))
+
+  print("------------ The Solution --------------")
+  for row in puzzle.getPuzzle():
+    print("     {}".format(row))

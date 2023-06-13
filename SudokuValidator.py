@@ -1,3 +1,9 @@
+# Check Sudoku puzzle is vaildator.
+# use OneToNineTester
+# testRows: test Sudoku puzzle's every rows.
+# testColumns: test Sudoku puzzle's every columns.
+# testGrids: test Sudoku puzzle's every grids.
+# If three tests are pass, the Sudoku puzzle is vaild.
 import SudokuPuzzle
 import OneToNineTester
 
@@ -30,4 +36,3 @@ class IsVaild:
   
   def getTestedResult(self):
     return self.testResult
-

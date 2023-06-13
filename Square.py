@@ -46,13 +46,19 @@ class Square:
 
   def checkGiven(self):
     return self.isGiven
+
   def getSure(self):
     return self.sureNumber
+
   def getGiven(self):
-    if self.checkGiven:
+    if self.checkGiven():
       return self.sureNumber
     else:
       return 0
+
+  def getSure(self):
+    return self.sureNumber
+
   def getPossibleNumber(self):
     return self.possibleNumber
   def getLongPossibleNumber(self):

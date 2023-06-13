@@ -5,11 +5,18 @@ import Square
 import Helper
 
 # A Common broad has 9 rows and every rows has 9 square.
-# Begin the game start the game hoster can use setGivens method
+#
+# setGivens method Begin the game start the game hoster can use that
 # to set the broad. at last hoster will set 17 square to special
 # number and let the game just has only one solutions
 #
-# getPuzzle method is get the given numbers 
+# helperGetPuzzle method is a helper program,
+# it will follow the getType to get the date from Sudoku puzzle's square.
+#
+# getPuzzle method is get the sure numbers 
+# at set to a 2D puzzle array and return that array.
+#
+# getGivenPuzzle method is get the given numbers 
 # at set to a 2D puzzle array and return that array.
 #
 # getPuzzleObj method will return whole puzzle broad,
@@ -19,14 +26,16 @@ import Helper
 # getColumn method, pass the square's x, 
 # then method will return the square's x column.
 #
-# getGrids method, need pass the square's x, y location
-# It will return the Grids, it is own that square.
+# getGrids method, need pass the Grids's x, y location
+# It will return the Grids array.
 #
 # updatePossibleNumbers method, it will update all square,
 # that square isn't has sureNumber. 
 # it will use Helper functions to find 
 # What numbers can fill in the square 
 # and keep the Sudoku puzzla still vaild.
+# 
+# findSolution method, it will find the Soduku puzzle's solution.
 class SudokuPuzzle:
   def __init__(self):
 
@@ -34,15 +43,24 @@ class SudokuPuzzle:
 
   def setGivens(self, x, y, number):
     self.thePuzzle[y][x].setGiven(number)
-
-  def getPuzzle(self):
+    
+  def helperGetPuzzle(self, getType):
     puzzle = []
     for row in self.thePuzzle:
       theRow = []
       for square in row:
-        theRow.append(square.getGiven())
+        if ( getType == "sure"):
+          theRow.append(square.getSure())
+        elif ( getType == "given" ):
+          theRow.append(square.getGiven())
       puzzle.append(theRow)
     return puzzle
+
+  def getPuzzle(self):
+    return self.helperGetPuzzle("sure")
+
+  def getGivenPuzzle(self):
+    return self.helperGetPuzzle("given")
 
   def getPuzzleObj(self):
     return self.thePuzzle
@@ -82,3 +100,14 @@ class SudokuPuzzle:
 
           self.getPuzzleObj()[y][x].setPossibleNumber(possibleNumbers)
     return [[],[],[]]
+
+  def findSolution(self):
+    while True:
+      hasDoNotSureRow = 0
+      self.updatePossibleNumbers()
+      for row in self.getPuzzleObj():
+        for square in row:
+          if not square.sureThis():
+            hasDoNotSureRow += 1
+      if hasDoNotSureRow == 0:
+        break
